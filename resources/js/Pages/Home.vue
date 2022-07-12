@@ -1,25 +1,21 @@
 <template>
+    <LayoutDashboard>
 
 
 
-
-
-    <h1 class="bg-red-800">
-        oi eu estou home, variavel: {{ user }}
-    </h1>
-
-
-
-
-
-
-
+    </LayoutDashboard>
 </template>
 
+
 <script>
+import LayoutDashboard from '../components/LayoutDashboard.vue';
+
 export default {
     props: {
-        user: Number
+
+    },
+    components: {
+        LayoutDashboard
     }
 }
 </script>
