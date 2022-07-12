@@ -15,7 +15,14 @@ return new class extends Migration
     {
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('option_id');
+            $table->unsignedBigInteger('survey_id');
             $table->timestamps();
+        });
+
+        Schema::table('votes', function (Blueprint $table) {
+            $table->foreign('option_id')->references('id')->on('options')->cascadeOnDelete();
+            $table->foreign('survey_id')->references('id')->on('surveys')->cascadeOnDelete();
         });
     }
 
