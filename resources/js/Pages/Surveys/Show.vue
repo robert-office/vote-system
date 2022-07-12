@@ -2,7 +2,7 @@
     <LayoutDashboard>
 
 
-        <h3>Todas as Enquetes</h3>
+        <h3>Enquete</h3>
 
 
 
@@ -13,7 +13,7 @@
 
 
 <script>
-import LayoutDashboard from '../components/LayoutDashboard.vue';
+import LayoutDashboard from '../../components/LayoutDashboard.vue';
 
 export default {
     props: {

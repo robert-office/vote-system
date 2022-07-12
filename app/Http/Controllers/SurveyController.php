@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Survey;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,7 +15,7 @@ class SurveyController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Surveys');
+        return Inertia::render('Surveys/Index');
     }
 
     /**
@@ -24,7 +25,7 @@ class SurveyController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Surveys/Create');
     }
 
     /**
@@ -44,9 +45,11 @@ class SurveyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Survey $survey)
     {
-        //
+        return Inertia::render('Surveys/Show', [
+            "survey" => $survey
+        ]);
     }
 
     /**
@@ -55,9 +58,11 @@ class SurveyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Survey $survey)
     {
-        //
+        return Inertia::render('Surveys/Edit', [
+            "survey" => $survey
+        ]);
     }
 
     /**
@@ -67,7 +72,7 @@ class SurveyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Survey $survey)
     {
         //
     }
@@ -78,8 +83,9 @@ class SurveyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Survey $survey)
     {
-        //
+        $survey->delete();
+        return response()->noContent();
     }
 }

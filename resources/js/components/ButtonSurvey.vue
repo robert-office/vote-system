@@ -1,5 +1,5 @@
 <template>
-    <inertia-link href="/enquetes/create">
+    <inertia-link href="enquetes/create">
         <div
             class="md:flex relative w-12 h-12 btn btnDesktop group transition-all hover:border-primary border cursor-pointer hidden justify-center">
             <span class="text-primary group-hover:scale-125 transition-all font-bold text-3xl self-center">+</span>
