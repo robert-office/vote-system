@@ -1,9 +1,8 @@
 <template>
-
     <Header />
-
-
-
+    <div class="container mx-auto flex p-5 items-center">
+        <slot></slot>
+    </div>
 </template>
 
 <script>
