@@ -1,6 +1,6 @@
 <template>
     <Header />
-    <div class="container mx-auto flex p-5 items-center">
+    <div class="relative container mx-auto flex flex-col p-5 mb-40">
         <slot></slot>
     </div>
 </template>
