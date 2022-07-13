@@ -28,7 +28,6 @@
             </div>
         </div>
 
-
         <div class="relative flex flex-col md:flex-row md:justify-between align-baseline md:mt-20 mt-5">
             <ResponsibleLabel>Editar Enquete</ResponsibleLabel>
         </div>
@@ -72,7 +71,7 @@
                 </div>
                 <div class="flex md:justify-end md:mr-1">
                     <ButtonSubmit>
-                        Criar e escolher Opções
+                        Editar
                     </ButtonSubmit>
                 </div>
             </form>

@@ -2,21 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Option;
 use App\Models\Survey;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class OptionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -39,18 +31,7 @@ class OptionController extends Controller
         $survey = Survey::find($request->survey_id);
         $survey->options()->createMany($options);
 
-        return inertia('Surveys/Show', compact('survey'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return Redirect::route('enquetes.index');
     }
 
     /**
@@ -61,7 +42,10 @@ class OptionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $survey = Survey::find($id);
+        $options = $survey->options->toArray();
+
+        return inertia('Options/Edit', compact('options, id'));
     }
 
     /**
@@ -72,17 +56,6 @@ class OptionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
     {
         //
     }
