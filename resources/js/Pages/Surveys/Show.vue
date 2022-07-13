@@ -2,7 +2,7 @@
     <LayoutDashboard>
 
 
-        <h3>Enquete</h3>
+        <h3>Enquete de id {{survey.id}}</h3>
 
 
 
@@ -17,7 +17,7 @@ import LayoutDashboard from '../../components/LayoutDashboard.vue';
 
 export default {
     props: {
-
+        survey: Object
     },
     components: {
         LayoutDashboard

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSurveyRequest;
 use App\Http\Requests\UpdateSurveyRequest;
+use App\Http\Resources\Survey as ResourcesSurvey;
 use App\Models\Survey;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -17,7 +18,8 @@ class SurveyController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Surveys/Index');
+        $surveys = Survey::all();
+        return inertia('Surveys/Index', compact('surveys'));
     }
 
     /**
@@ -27,7 +29,7 @@ class SurveyController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Surveys/Create');
+        return inertia('Surveys/Create');
     }
 
     /**
@@ -55,9 +57,7 @@ class SurveyController extends Controller
      */
     public function show(Survey $survey)
     {
-        return Inertia::render('Surveys/Show', [
-            "survey" => $survey
-        ]);
+        return inertia('Surveys/Show', compact('survey'));
     }
 
     /**

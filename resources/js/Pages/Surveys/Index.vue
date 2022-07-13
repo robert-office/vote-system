@@ -6,7 +6,9 @@
         </div>
 
         <CarrouselCards>
-            <Card/>
+            <div v-for="survey in surveys">
+                <Card :title="survey.title" :id="survey.id" :start_date="survey.start_date"  :end_date="survey.end_date" />
+            </div>
         </CarrouselCards>
 
     </LayoutDashboard>
@@ -22,7 +24,7 @@ import CarrouselCards from '../../components/CarrouselCards.vue';
 
 export default {
     props: {
-
+        surveys: Object
     },
     components: {
         LayoutDashboard,
