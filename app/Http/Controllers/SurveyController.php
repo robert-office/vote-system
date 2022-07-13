@@ -37,6 +37,9 @@ class SurveyController extends Controller
      */
     public function store(StoreSurveyRequest $request)
     {
+        dd($request);
+        exit;
+
         $survey = Survey::create($request->validated());
 
         if( !$survey ){

@@ -25,8 +25,8 @@ class StoreSurveyRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date'
+            'start_date' => 'required',
+            'end_date' => 'required'
         ];
     }
 }
