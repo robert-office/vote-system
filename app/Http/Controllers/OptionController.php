@@ -45,7 +45,7 @@ class OptionController extends Controller
         $survey = Survey::find($id);
         $options = $survey->options->toArray();
 
-        return inertia('Options/Edit', compact('options','id'));
+        return inertia('Options/Edit', compact('options', 'id'));
     }
 
     /**
@@ -57,6 +57,11 @@ class OptionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $options = $request->options;
+        $survey = Survey::find($id);
+        $survey->options()->delete();
+        $survey->options()->createMany($options);
+
+        return redirect("options/$id/edit")->with('success', 'Opções Editadas com sucesso!');
     }
 }
