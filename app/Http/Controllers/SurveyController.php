@@ -64,8 +64,10 @@ class SurveyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Survey $survey)
+    public function edit($id)
     {
+        $survey = Survey::find($id);
+
         return inertia('Surveys/Edit', compact('survey'));
     }
 
@@ -76,9 +78,11 @@ class SurveyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSurveyRequest $request, Survey $survey)
+    public function update(UpdateSurveyRequest $request, $id)
     {
-        //
+        $survey = Survey::find($id);
+        $survey->update($request->validated());
+        return redirect("enquetes/". $survey->id . "/edit")->with('success', 'Enquete Atualizada Com Sucesso!');
     }
 
     /**

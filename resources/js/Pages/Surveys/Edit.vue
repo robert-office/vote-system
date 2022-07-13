@@ -35,7 +35,7 @@
 
         <Fileld>
 
-            <form @submit.prevent="form.put('/enquetes')">
+            <form @submit.prevent="form.put(`/enquetes/${survey.id}`)">
                 <div class="flex md:flex-row flex-col md:space-y-0 space-y-10 md:space-x-3 w-full">
                     <div class="md:w-1/3 w-full text-center md:text-left">
                         <Label> Titulo da Enquete </Label>
@@ -86,6 +86,7 @@ import Fileld from '../../components/Fileld.vue';
 import ButtonSubmit from '../../components/ButtonSubmit.vue'
 import Label from '../../components/Label.vue'
 import { useForm } from '@inertiajs/inertia-vue3'
+import moment from 'moment';
 
 export default {
     components: {
@@ -97,6 +98,7 @@ export default {
     },
 
     props: {
+        survey: Object,
         flash: Object
     },
 
@@ -106,11 +108,14 @@ export default {
         };
     },
 
-    setup() {
+    setup(props) {
+        let endDateFormated = moment(props.survey.end_date).format('YYYY-MM-DDTHH:mm');
+        let startDateFormated = moment(props.survey.start_date).format('YYYY-MM-DDTHH:mm');
+
         const form = useForm({
-            title: null,
-            start_date: null,
-            end_date: null,
+            title: props.survey.title,
+            start_date: startDateFormated,
+            end_date: endDateFormated,
         })
 
         return { form }

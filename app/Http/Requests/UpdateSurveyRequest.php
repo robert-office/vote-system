@@ -13,7 +13,7 @@ class UpdateSurveyRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class UpdateSurveyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'start_date' => 'required',
+            'end_date' => 'required'
         ];
     }
 }

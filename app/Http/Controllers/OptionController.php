@@ -45,7 +45,7 @@ class OptionController extends Controller
         $survey = Survey::find($id);
         $options = $survey->options->toArray();
 
-        return inertia('Options/Edit', compact('options, id'));
+        return inertia('Options/Edit', compact('options','id'));
     }
 
     /**

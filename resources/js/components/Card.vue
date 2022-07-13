@@ -2,14 +2,18 @@
     <div class="p-4 min-w-[300px] max-w-[300px]">
         <div class="h-full bg-gray-100 bg-opacity-75 rounded-lg overflow-hidden">
             <div class="px-4 pt-8 flex flex-row justify-between">
-                <button
-                    class="p-2 border border-primary rounded-lg text-primary hover:text-white hover:bg-primary text-xs">
-                    editar enquete
-                </button>
-                <button
-                    class="p-2 border border-primary rounded-lg text-primary hover:text-white hover:bg-primary text-xs">
-                    editar opções
-                </button>
+                <inertia-link :href="'/enquetes/' + id + '/edit'">
+                    <button
+                        class="p-2 border border-primary rounded-lg text-primary hover:text-white hover:bg-primary text-xs">
+                        editar enquete
+                    </button>
+                </inertia-link>
+                <inertia-link :href="'/options/' + id+ '/edit'">
+                    <button
+                        class="p-2 border border-primary rounded-lg text-primary hover:text-white hover:bg-primary text-xs">
+                        editar opções
+                    </button>
+                </inertia-link>
             </div>
 
             <div class="h-full px-8 py-32 rounded-lg overflow-hidden text-center relative">
