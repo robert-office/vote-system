@@ -1,6 +1,7 @@
 <template>
     <LayoutDashboard>
-        <div v-if="flash.success && !isHidden" class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md flex"
+        <div v-if="flash.success && !isHidden"
+            class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md flex"
             role="alert">
             <div class="flex w-11/12">
                 <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4"
@@ -86,7 +87,7 @@ import Fileld from '../../components/Fileld.vue';
 import ButtonSubmit from '../../components/ButtonSubmit.vue'
 import Label from '../../components/Label.vue'
 import { useForm } from '@inertiajs/inertia-vue3'
-import moment from 'moment';
+import { zonedTimeToUtc, utcToZonedTime, format } from 'date-fns-tz';
 
 export default {
     components: {
@@ -109,8 +110,13 @@ export default {
     },
 
     setup(props) {
-        let endDateFormated = moment(props.survey.end_date).format('YYYY-MM-DDTHH:mm');
-        let startDateFormated = moment(props.survey.start_date).format('YYYY-MM-DDTHH:mm');
+        function addHours(numOfHours, date) {
+            date.setTime(date.getTime() + numOfHours * 60 * 60 * 1000);
+            return date;
+        }
+
+        let endDateFormated = format(addHours(3, new Date(props.survey.end_date)), 'yyyy-MM-dd\'T\'HH:mm');
+        let startDateFormated = format(addHours(3, new Date(props.survey.end_date)), 'yyyy-MM-dd\'T\'HH:mm');
 
         const form = useForm({
             title: props.survey.title,

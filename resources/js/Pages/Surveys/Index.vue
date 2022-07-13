@@ -8,7 +8,8 @@
         <CarrouselCards>
             <div v-for="survey in surveys" class="mx-auto md:mx-0">
 
-                <Card :title="survey.title" :id="survey.id" :start_date="survey.start_date"  :end_date="survey.end_date" />
+                <Card :title="survey.title" :id="survey.id" :start_date="addHours(3, survey.start_date)"
+                    :end_date="addHours(3, survey.end_date)" />
             </div>
         </CarrouselCards>
 
@@ -33,6 +34,13 @@ export default {
         ButtonSurvey,
         Card,
         CarrouselCards
+    },
+    methods: {
+        addHours: function(numOfHours, date) {
+            date = new Date(date);
+            date.setTime(date.getTime() + numOfHours * 60 * 60 * 1000);
+            return date;
+        }
     }
 }
 </script>
