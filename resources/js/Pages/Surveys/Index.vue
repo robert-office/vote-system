@@ -16,7 +16,6 @@
     </LayoutDashboard>
 </template>
 
-
 <script>
 import LayoutDashboard from '../../components/LayoutDashboard.vue';
 import ResponsibleLabel from '../../components/ResponsibleLabel.vue';
