@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSurveyRequest;
 use App\Http\Requests\UpdateSurveyRequest;
-use App\Http\Resources\Survey as ResourcesSurvey;
 use App\Models\Survey;
 use Illuminate\Support\Facades\Redirect;
-use Inertia\Inertia;
 
 class SurveyController extends Controller
 {
@@ -43,10 +41,10 @@ class SurveyController extends Controller
         $survey = Survey::create($request->validated());
 
         if( !$survey ){
-            return Redirect::route('enquetes.create', array())->with('failed', 'Erro ao Criar a Enquete');
+            return Redirect::route('enquetes.create', array());
         }
 
-        return Redirect::route('enquetes.create', array('survey' => $survey))->with('success', 'Enquete Criada com Sucesso');
+        return Redirect::route('options.create', array('survey' => $survey));
     }
 
     /**
@@ -68,9 +66,7 @@ class SurveyController extends Controller
      */
     public function edit(Survey $survey)
     {
-        return Inertia::render('Surveys/Edit', [
-            "survey" => $survey
-        ]);
+        return inertia('Surveys/Edit', compact('survey'));
     }
 
     /**

@@ -72,7 +72,7 @@
                 </div>
                 <div class="flex md:justify-end md:mr-1">
                     <ButtonSubmit>
-                        Criar
+                        Criar e escolher Opções
                     </ButtonSubmit>
                 </div>
             </form>

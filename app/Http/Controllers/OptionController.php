@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Survey;
 use Illuminate\Http\Request;
 
 class OptionController extends Controller
@@ -23,7 +24,7 @@ class OptionController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Options/Create');
     }
 
     /**
@@ -34,7 +35,11 @@ class OptionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $options = $request->options;
+        $survey = Survey::find($request->survey_id);
+        $survey->options()->createMany($options);
+
+        return inertia('Surveys/Show', compact('survey'));
     }
 
     /**
