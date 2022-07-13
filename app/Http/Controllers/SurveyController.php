@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSurveyRequest;
 use App\Http\Requests\UpdateSurveyRequest;
 use App\Models\Survey;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class SurveyController extends Controller
@@ -37,16 +38,13 @@ class SurveyController extends Controller
      */
     public function store(StoreSurveyRequest $request)
     {
-        dd($request);
-        exit;
-
         $survey = Survey::create($request->validated());
 
         if( !$survey ){
-            return Inertia::render('Surveys/Create', array())->with('failed', 'Erro ao Criar a Enquete');
+            return Redirect::route('enquetes.create', array())->with('failed', 'Erro ao Criar a Enquete');
         }
 
-        return Inertia::render('Surveys/Create', array('survey' => $survey))->with('sucecss', 'Enquete Criada com Sucesso');
+        return Redirect::route('enquetes.create', array('survey' => $survey))->with('success', 'Enquete Criada com Sucesso');
     }
 
     /**
