@@ -1,8 +1,6 @@
 <template>
     <LayoutDashboard>
-
-
-        <h3>Todas as Enquetes</h3>
+        <h3>Nova Enquete</h3>
 
 
 

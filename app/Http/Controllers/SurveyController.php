@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSurveyRequest;
+use App\Http\Requests\UpdateSurveyRequest;
 use App\Models\Survey;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class SurveyController extends Controller
@@ -34,9 +35,15 @@ class SurveyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSurveyRequest $request)
     {
-        //
+        $survey = Survey::create($request->validated());
+
+        if( !$survey ){
+            return Inertia::render('Surveys/Create', array())->with('failed', 'Erro ao Criar a Enquete');
+        }
+
+        return Inertia::render('Surveys/Create', array('survey' => $survey))->with('sucecss', 'Enquete Criada com Sucesso');
     }
 
     /**
@@ -72,7 +79,7 @@ class SurveyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Survey $survey)
+    public function update(UpdateSurveyRequest $request, Survey $survey)
     {
         //
     }
