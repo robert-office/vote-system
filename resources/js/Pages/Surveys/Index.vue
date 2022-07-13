@@ -6,7 +6,8 @@
         </div>
 
         <CarrouselCards>
-            <div v-for="survey in surveys">
+            <div v-for="survey in surveys" class="mx-auto md:mx-0">
+
                 <Card :title="survey.title" :id="survey.id" :start_date="survey.start_date"  :end_date="survey.end_date" />
             </div>
         </CarrouselCards>

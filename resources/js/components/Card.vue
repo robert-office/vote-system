@@ -1,5 +1,5 @@
 <template>
-    <div class="p-4 min-w-[300px] max-w-[300px]">
+    <div class="p-4 min-w-[300px] max-w-[300px] md:mx-0 mx-auto">
         <div class="h-full bg-gray-100 bg-opacity-75 rounded-lg overflow-hidden">
             <div class="flex flex-row justify-between px-4 pt-8">
                 <div class="flex flex-col space-y-2">
