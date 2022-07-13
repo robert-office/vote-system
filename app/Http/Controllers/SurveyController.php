@@ -91,9 +91,10 @@ class SurveyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Survey $survey)
+    public function destroy($id)
     {
+        $survey = Survey::find($id);
         $survey->delete();
-        return response()->noContent();
+        return Redirect::route('enquetes.index');
     }
 }

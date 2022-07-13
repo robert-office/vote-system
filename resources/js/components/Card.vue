@@ -1,19 +1,25 @@
 <template>
     <div class="p-4 min-w-[300px] max-w-[300px]">
         <div class="h-full bg-gray-100 bg-opacity-75 rounded-lg overflow-hidden">
-            <div class="px-4 pt-8 flex flex-row justify-between">
-                <inertia-link :href="'/enquetes/' + id + '/edit'">
-                    <button
-                        class="p-2 border border-primary rounded-lg text-primary hover:text-white hover:bg-primary text-xs">
-                        editar enquete
-                    </button>
-                </inertia-link>
-                <inertia-link :href="'/options/' + id+ '/edit'">
-                    <button
-                        class="p-2 border border-primary rounded-lg text-primary hover:text-white hover:bg-primary text-xs">
-                        editar opções
-                    </button>
-                </inertia-link>
+            <div class="flex flex-row justify-between px-4 pt-8">
+                <div class="flex flex-col space-y-2">
+                    <inertia-link :href="'/enquetes/' + id + '/edit'">
+                        <button
+                            class="p-2 border border-primary rounded-lg text-primary hover:text-white hover:bg-primary text-xs">
+                            editar enquete
+                        </button>
+                    </inertia-link>
+                    <inertia-link :href="'/options/' + id + '/edit'">
+                        <button
+                            class="p-2 border border-primary rounded-lg text-primary hover:text-white hover:bg-primary text-xs">
+                            editar opções
+                        </button>
+                    </inertia-link>
+                </div>
+                <button v-on:click="deleteSubmit()" type="button"
+                    class="w-10 h-10 p-2 border border-primary rounded-full text-primary hover:text-white hover:bg-primary text-xs">
+                    X
+                </button>
             </div>
 
             <div class="h-full px-8 py-32 rounded-lg overflow-hidden text-center relative">
@@ -26,7 +32,9 @@
                     <inertia-link :href="'/enquetes/' + id">Votar na Enquete</inertia-link>
                 </button>
                 <div class="text-center mt-2 leading-none flex justify-center absolute bottom-0 left-0 w-full p-4">
-                    <span class="font-semibold text-primary"> {{ start_date }} até as {{ end_date }}</span>
+                    <span class="font-semibold text-xs text-primary"> {{ dateFormatter(start_date) }} até as {{
+                            dateFormatter(end_date)
+                    }}</span>
                 </div>
             </div>
         </div>
@@ -34,6 +42,8 @@
 </template>
 
 <script>
+import moment from 'moment';
+import { Inertia } from '@inertiajs/inertia'
 
 export default {
     props: {
@@ -41,6 +51,19 @@ export default {
         title: String,
         start_date: String,
         end_date: String,
+    },
+
+    data(props) {
+        return {
+            id: props.id
+        };
+    },
+    methods: {
+        dateFormatter: (date) => moment(date).format('DD/MM/YY H:m'),
+
+        deleteSubmit: function () {
+            Inertia.delete(`/enquetes/${this.id}`);
+        }
     }
 }
 
