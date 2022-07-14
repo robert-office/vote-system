@@ -7,6 +7,7 @@
             </p>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
                 <inertia-link href="/" class="mr-5 cursor-pointer hover:text-gray-900">Home</inertia-link>
+                <inertia-link href="/enquetes" class="mr-5 cursor-pointer hover:text-gray-900">Enquetes</inertia-link>
             </nav>
         </div>
     </header>
