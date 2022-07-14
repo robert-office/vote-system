@@ -7,8 +7,8 @@
                         class="mr-1 mb-1 px-4 py-3 text-sm leading-4 text-gray-400 border rounded"
                         v-html="link.label" />
                     <inertia-link v-else :key="'paginator' + key"
-                        class="mr-1 mb-1 px-4 py-3 text-sm leading-4 border rounded hover:bg-white focus:border-indigo-500 focus:text-indigo-500"
-                        :class="{ 'bg-primary': link.active }" :href="link.url" v-html="link.label" />
+                        class="mr-1 mb-1 px-4 py-3 text-sm leading-4 hover:text-white border rounded focus:border-indigo-500 focus:text-indigo-500"
+                        :class="{ 'bg-primary': link.active, 'hover:bg-primary': !link.active }" :href="link.url" v-html="link.label" />
                 </template>
             </div>
         </div>

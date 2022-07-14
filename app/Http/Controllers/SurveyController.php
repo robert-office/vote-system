@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSurveyRequest;
 use App\Http\Requests\UpdateSurveyRequest;
+use App\Http\Resources\OptionsResource;
 use App\Models\Survey;
 use Illuminate\Support\Facades\Redirect;
 
@@ -60,9 +61,12 @@ class SurveyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Survey $survey)
+    public function show($id)
     {
-        return inertia('Surveys/Show', compact('survey'));
+        $survey = Survey::find($id);
+        $options = $survey->options;
+
+        return inertia('Surveys/Show', compact('survey', 'options'));
     }
 
     /**
