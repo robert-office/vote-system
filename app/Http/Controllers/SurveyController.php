@@ -16,7 +16,14 @@ class SurveyController extends Controller
      */
     public function index()
     {
-        $surveys = Survey::all();
+        $surveys = Survey::paginate(10)->through(function ($item) {
+            return [
+                'id' => $item->id,
+                'title' => $item->title,
+                'end_date' => $item->end_date,
+                'start_date' => $item->start_date
+            ];
+        });
         return inertia('Surveys/Index', compact('surveys'));
     }
 
@@ -40,7 +47,7 @@ class SurveyController extends Controller
     {
         $survey = Survey::create($request->validated());
 
-        if( !$survey ){
+        if (!$survey) {
             return Redirect::route('enquetes.create', array());
         }
 
@@ -82,7 +89,7 @@ class SurveyController extends Controller
     {
         $survey = Survey::find($id);
         $survey->update($request->validated());
-        return redirect("enquetes/". $survey->id . "/edit")->with('success', 'Enquete Atualizada Com Sucesso!');
+        return redirect("enquetes/" . $survey->id . "/edit")->with('success', 'Enquete Atualizada Com Sucesso!');
     }
 
     /**

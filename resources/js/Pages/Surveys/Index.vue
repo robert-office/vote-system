@@ -6,13 +6,13 @@
         </div>
 
         <ResponsiveGrid>
-            <div v-for="survey in surveys" class="mx-auto md:mx-0">
-
+            <div v-for="survey in surveys.data" class="mx-auto md:mx-0">
                 <Card :title="survey.title" :id="survey.id" :start_date="addHours(3, survey.start_date)"
                     :end_date="addHours(3, survey.end_date)" />
             </div>
         </ResponsiveGrid>
 
+        <Pagination :links="surveys.links" />
     </LayoutDashboard>
 </template>
 
@@ -23,6 +23,7 @@ import Card from '../../components/Card.vue';
 import ButtonSurvey from '../../components/ButtonSurvey.vue';
 import CarrouselCards from '../../components/CarrouselCards.vue';
 import ResponsiveGrid from '../../components/ResponsiveGrid.vue';
+import Pagination from '../../components/Pagination.vue';
 
 export default {
     props: {
@@ -34,7 +35,8 @@ export default {
     ButtonSurvey,
     Card,
     CarrouselCards,
-    ResponsiveGrid
+    ResponsiveGrid,
+    Pagination
 },
     methods: {
         addHours: function(numOfHours, date) {
