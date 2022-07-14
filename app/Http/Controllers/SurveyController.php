@@ -75,6 +75,7 @@ class SurveyController extends Controller
             ];
         });
 
+        $votes = array('data' => $votes);
         return inertia('Surveys/Show', compact('survey', 'options', 'votes'));
     }
 

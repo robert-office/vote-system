@@ -44,7 +44,8 @@
             <form class="relative w-full flex flex-col justify-center space-y-5 mt-10"
                 @submit.prevent="form.post('/votes/' + survey.id)">
                 <div v-for="option in options">
-                    <div class="relative md:w-1/2 w-full flex flex-row justify-between p-2 border border-primary mx-auto rounded">
+                    <div
+                        class="relative md:w-1/2 w-full flex flex-row justify-between p-2 border border-primary mx-auto rounded">
                         <div class="flex h-auto">
                             <div class="w-10">
                                 <input v-model="picked" :value="option.id" type="radio"
@@ -54,7 +55,7 @@
                         </div>
                         <div class="w-16 flex justify-end absolute -top-3 right-2">
                             <p class="relative bg-gray-100 px-2 text-xs text-center font-bold whitespace-nowrap">
-                                {{getPercentage(votes, option.id)}}% ({{ getCount(votes, option.id) }} votos )
+                                 ({{ getCount(option.id) }} votos )
                             </p>
                         </div>
                     </div>
@@ -66,7 +67,6 @@
         </Fileld>
     </LayoutDashboard>
 </template>
-
 
 <script>
 import LayoutDashboard from '../../components/LayoutDashboard.vue';
@@ -85,30 +85,33 @@ export default {
         flash: Object
     },
 
+    mounted() {
+        window.Echo.channel(`votes_survey_id_${this.$props.survey.id}`)
+            .listen('VoteAdded', (votesApi) => {
+                this.setLocalVotes(votesApi);
+            });
+    },
+
     setup(props) {
         const picked = ref('');
         const isHidden = ref(false);
 
+
         const form = useForm({
             'survey_id': props.survey.id,
             'option_id': picked,
-        })
+        });
 
         return { form, picked, isHidden, format }
     },
 
     methods: {
-        getCount(votes = [], id) {
-            return votes.find(vote => vote.id == id)['count'];
+        getCount(id) {
+            return this.$props.votes.data.find(vote => vote.id == id)['count'];
         },
-        getPercentage(votes = [], id){
-            let total = 0;
-            votes.map( vote => total += vote.count);
 
-            if(total <= 0) { return 0; }
-
-            let percentagem = this.getCount(votes, id) / total * 100;
-            return (Math.floor(percentagem * 100) / 100).toFixed(2);
+        setLocalVotes(data) {
+            this.$props.votes.data = data.votes;
         }
     },
 
