@@ -5,13 +5,13 @@
             <ButtonSurvey></ButtonSurvey>
         </div>
 
-        <CarrouselCards>
+        <ResponsiveGrid>
             <div v-for="survey in surveys" class="mx-auto md:mx-0">
 
                 <Card :title="survey.title" :id="survey.id" :start_date="addHours(3, survey.start_date)"
                     :end_date="addHours(3, survey.end_date)" />
             </div>
-        </CarrouselCards>
+        </ResponsiveGrid>
 
     </LayoutDashboard>
 </template>
@@ -22,18 +22,20 @@ import ResponsibleLabel from '../../components/ResponsibleLabel.vue';
 import Card from '../../components/Card.vue';
 import ButtonSurvey from '../../components/ButtonSurvey.vue';
 import CarrouselCards from '../../components/CarrouselCards.vue';
+import ResponsiveGrid from '../../components/ResponsiveGrid.vue';
 
 export default {
     props: {
         surveys: Object
     },
     components: {
-        LayoutDashboard,
-        ResponsibleLabel,
-        ButtonSurvey,
-        Card,
-        CarrouselCards
-    },
+    LayoutDashboard,
+    ResponsibleLabel,
+    ButtonSurvey,
+    Card,
+    CarrouselCards,
+    ResponsiveGrid
+},
     methods: {
         addHours: function(numOfHours, date) {
             date = new Date(date);

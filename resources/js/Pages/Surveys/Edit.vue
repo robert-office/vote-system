@@ -87,7 +87,8 @@ import Fileld from '../../components/Fileld.vue';
 import ButtonSubmit from '../../components/ButtonSubmit.vue'
 import Label from '../../components/Label.vue'
 import { useForm } from '@inertiajs/inertia-vue3'
-import { zonedTimeToUtc, utcToZonedTime, format } from 'date-fns-tz';
+import { format } from 'date-fns-tz';
+import {correctTimeZone} from '../../Helpers/functions';
 
 export default {
     components: {
@@ -109,14 +110,13 @@ export default {
         };
     },
 
-    setup(props) {
-        function addHours(numOfHours, date) {
-            date.setTime(date.getTime() + numOfHours * 60 * 60 * 1000);
-            return date;
-        }
+    methods: {
+        correctTimeZone
+    },
 
-        let endDateFormated = format(addHours(3, new Date(props.survey.end_date)), 'yyyy-MM-dd\'T\'HH:mm');
-        let startDateFormated = format(addHours(3, new Date(props.survey.end_date)), 'yyyy-MM-dd\'T\'HH:mm');
+    setup(props) {
+        let endDateFormated = format(correctTimeZone(3, new Date(props.survey.end_date)), 'yyyy-MM-dd\'T\'HH:mm');
+        let startDateFormated = format(correctTimeZone(3, new Date(props.survey.end_date)), 'yyyy-MM-dd\'T\'HH:mm');
 
         const form = useForm({
             title: props.survey.title,
