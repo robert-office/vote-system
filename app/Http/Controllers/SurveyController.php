@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSurveyRequest;
 use App\Http\Requests\UpdateSurveyRequest;
 use App\Http\Resources\OptionsResource;
+use App\Models\Option;
 use App\Models\Survey;
 use Illuminate\Support\Facades\Redirect;
 
@@ -66,7 +67,15 @@ class SurveyController extends Controller
         $survey = Survey::find($id);
         $options = $survey->options;
 
-        return inertia('Surveys/Show', compact('survey', 'options'));
+        $votes = Option::where('survey_id', $survey->id)->withCount('votes')->get();
+        $votes = collect($votes)->map(function($vote){
+            return [
+                'id' => $vote->id,
+                'count' => $vote->votes_count
+            ];
+        });
+
+        return inertia('Surveys/Show', compact('survey', 'options', 'votes'));
     }
 
     /**

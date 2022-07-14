@@ -1,7 +1,7 @@
 <template>
     <LayoutDashboard>
 
-        <div v-if="flash.success &&!isHidden"
+        <div v-if="flash.success && !isHidden"
             class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md flex"
             role="alert">
             <div class="flex w-11/12">
@@ -35,23 +35,27 @@
         </div>
 
         <Fileld>
-            <p class="text-center text-sm font-bold text-gray-600 mb-10"> {{format(new Date(survey.start_date), 'dd/MM/yyyy HH:mm') }} até as {{format(new Date(survey.end_date), 'dd/MM/yyyy HH:mm') }} </p>
+            <p class="text-center text-sm font-bold text-gray-600 mb-10"> {{ format(new Date(survey.start_date),
+                    'dd/MM/yyyy HH:mm')
+            }} até as {{ format(new Date(survey.end_date), 'dd/MM/yyyy HH:mm') }} </p>
             <p class="text-center text-sm font-bold text-gray-600"> enquete nº {{ survey.id }} </p>
             <p class="text-center text-2xl text-primary font-bold"> {{ survey.title }} </p>
 
             <form class="relative w-full flex flex-col justify-center space-y-5 mt-10"
                 @submit.prevent="form.post('/votes/' + survey.id)">
                 <div v-for="option in options">
-                    <div class="relative w-1/2 flex flex-row justify-between p-2 border border-primary mx-auto rounded">
-                        <div class="flex">
-                            <div class="w-10"><input v-model="picked" :value="option.id" type="radio"
-                                    class="form-check-input appearance-none rounded-full h-4 w-4 border border-primary bg-white checked:bg-primary focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" />
+                    <div class="relative md:w-1/2 w-full flex flex-row justify-between p-2 border border-primary mx-auto rounded">
+                        <div class="flex h-auto">
+                            <div class="w-10">
+                                <input v-model="picked" :value="option.id" type="radio"
+                                    class="appearance-none rounded-full h-4 w-4 border border-primary bg-white checked:bg-primary focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" />
                             </div>
                             <p class="w-full text-gray-600 font-serif font-bold">{{ option.title }}</p>
                         </div>
                         <div class="w-16 flex justify-end absolute -top-3 right-2">
-                            <p class="relative bg-gray-100 px-2 text-xs text-center font-bold whitespace-nowrap">22% (12
-                                votos)</p>
+                            <p class="relative bg-gray-100 px-2 text-xs text-center font-bold whitespace-nowrap">
+                                {{getPercentage(votes, option.id)}}% ({{ getCount(votes, option.id) }} votos )
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -77,6 +81,7 @@ export default {
     props: {
         survey: Object,
         options: Object,
+        votes: Object,
         flash: Object
     },
 
@@ -90,6 +95,21 @@ export default {
         })
 
         return { form, picked, isHidden, format }
+    },
+
+    methods: {
+        getCount(votes = [], id) {
+            return votes.find(vote => vote.id == id)['count'];
+        },
+        getPercentage(votes = [], id){
+            let total = 0;
+            votes.map( vote => total += vote.count);
+
+            if(total <= 0) { return 0; }
+
+            let percentagem = this.getCount(votes, id) / total * 100;
+            return (Math.floor(percentagem * 100) / 100).toFixed(2);
+        }
     },
 
     components: {
