@@ -65,6 +65,10 @@ class SurveyController extends Controller
     public function show($id)
     {
         $survey = Survey::find($id);
+        if(!$survey){
+            return Redirect::route('enquetes.index');
+        }
+
         $options = $survey->options;
 
         $votes = Option::where('survey_id', $survey->id)->withCount('votes')->get();
@@ -88,6 +92,9 @@ class SurveyController extends Controller
     public function edit($id)
     {
         $survey = Survey::find($id);
+        if(!$survey){
+            return Redirect::route('enquetes.index');
+        }
 
         return inertia('Surveys/Edit', compact('survey'));
     }
@@ -102,6 +109,10 @@ class SurveyController extends Controller
     public function update(UpdateSurveyRequest $request, $id)
     {
         $survey = Survey::find($id);
+        if(!$survey){
+            return Redirect::route('enquetes.index');
+        }
+
         $survey->update($request->validated());
         return redirect("enquetes/" . $survey->id . "/edit")->with('success', 'Enquete Atualizada Com Sucesso!');
     }
@@ -115,6 +126,10 @@ class SurveyController extends Controller
     public function destroy($id)
     {
         $survey = Survey::find($id);
+        if(!$survey){
+            return Redirect::route('enquetes.index');
+        }
+
         $survey->delete();
         return Redirect::route('enquetes.index');
     }

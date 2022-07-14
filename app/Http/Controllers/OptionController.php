@@ -43,6 +43,10 @@ class OptionController extends Controller
     public function edit($id)
     {
         $survey = Survey::find($id);
+        if(!$survey){
+            return Redirect::route('enquetes.index');
+        }
+
         $options = $survey->options->toArray();
 
         return inertia('Options/Edit', compact('options', 'id'));
