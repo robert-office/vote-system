@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSurveyRequest;
 use App\Http\Requests\UpdateSurveyRequest;
-use App\Http\Resources\OptionsResource;
+use App\Http\Resources\VotesResource;
 use App\Models\Option;
 use App\Models\Survey;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Support\Facades\Redirect;
 
 class SurveyController extends Controller
@@ -65,22 +67,21 @@ class SurveyController extends Controller
     public function show($id)
     {
         $survey = Survey::find($id);
-        if(!$survey){
-            return Redirect::route('enquetes.index');
+        if (!$survey) {
+            return redirect('enquetes')->with('failed', 'Houve um erro ao tentar acessar a enquete...');
         }
 
         $options = $survey->options;
+        $votes = VotesResource::collection(Option::where('survey_id', $survey->id)->withCount('votes')->get());
 
-        $votes = Option::where('survey_id', $survey->id)->withCount('votes')->get();
-        $votes = collect($votes)->map(function($vote){
-            return [
-                'id' => $vote->id,
-                'count' => $vote->votes_count
-            ];
-        });
+        $now = Carbon::now();
+        $startDate = (new Carbon)->parse($survey->start_date);
+        $endDate = (new Carbon)->parse($survey->end_date);
+        $infos = array(
+            'survey_is_open' => $startDate->lessThan($now) && $endDate->greaterThan($now)
+        );
 
-        $votes = array('data' => $votes);
-        return inertia('Surveys/Show', compact('survey', 'options', 'votes'));
+        return inertia('Surveys/Show', compact('survey', 'options', 'votes', 'infos'));
     }
 
     /**
@@ -92,8 +93,8 @@ class SurveyController extends Controller
     public function edit($id)
     {
         $survey = Survey::find($id);
-        if(!$survey){
-            return Redirect::route('enquetes.index');
+        if (!$survey) {
+            return redirect('enquetes')->with('failed', 'Houve um erro ao tentar acessar a enquete...');
         }
 
         return inertia('Surveys/Edit', compact('survey'));
@@ -109,8 +110,8 @@ class SurveyController extends Controller
     public function update(UpdateSurveyRequest $request, $id)
     {
         $survey = Survey::find($id);
-        if(!$survey){
-            return Redirect::route('enquetes.index');
+        if (!$survey) {
+            return redirect('enquetes')->with('failed', 'Houve um erro ao tentar editar aquela enquete...');
         }
 
         $survey->update($request->validated());
@@ -126,8 +127,8 @@ class SurveyController extends Controller
     public function destroy($id)
     {
         $survey = Survey::find($id);
-        if(!$survey){
-            return Redirect::route('enquetes.index');
+        if (!$survey) {
+            return redirect('enquetes')->with('failed', 'Houve um erro ao tentar deletar aquela enquete...');
         }
 
         $survey->delete();

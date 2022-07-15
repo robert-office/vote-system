@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Events\VoteAdded;
+use App\Models\Survey;
 use App\Models\Vote;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -21,6 +23,19 @@ class VoteController extends Controller
             'survey_id' => 'required',
             'option_id' => 'required'
         ]);
+
+        $survey = Survey::find($request->survey_id);
+        if (!$survey) {
+            return redirect('enquetes')->with('failed', 'Impossivel editar as opções dessa enquete');
+        }
+
+        $now = Carbon::now();
+        $startDate = (new Carbon)->parse($survey->start_date);
+        $endDate = (new Carbon)->parse($survey->end_date);
+        if (!$startDate->lessThan($now) || !$endDate->greaterThan($now)) {
+            return redirect('enquetes')->with('failed', 'Tentou votar em uma enquete encerrada...');
+        }
+
 
         if ($vote = Vote::create($requestValidated)) {
             event(new VoteAdded($vote->survey_id));

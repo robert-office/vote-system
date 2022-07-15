@@ -35,9 +35,9 @@
         </div>
 
         <Fileld>
-            <p class="text-center text-sm font-bold text-gray-600 mb-10"> {{ format(new Date(survey.start_date),
-                    'dd/MM/yyyy HH:mm')
-            }} até as {{ format(new Date(survey.end_date), 'dd/MM/yyyy HH:mm') }} </p>
+            <p>
+
+            </p>
             <p class="text-center text-sm font-bold text-gray-600"> enquete nº {{ survey.id }} </p>
             <p class="text-center text-2xl text-primary font-bold"> {{ survey.title }} </p>
 
@@ -48,7 +48,9 @@
                         class="relative md:w-1/2 w-full flex flex-row justify-between p-2 border border-primary mx-auto rounded">
                         <div class="flex h-auto">
                             <div class="w-10">
-                                <input v-model="picked" :value="option.id" type="radio"
+                                <input
+                                    v-bind:class="{ disabled: !infos.survey_is_open }"
+                                    v-model="picked" :value="option.id" type="radio"
                                     class="appearance-none rounded-full h-4 w-4 border border-primary bg-white checked:bg-primary focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" />
                             </div>
                             <p class="w-full text-gray-600 font-serif font-bold">{{ option.title }}</p>
@@ -61,7 +63,14 @@
                     </div>
                 </div>
                 <div class="relative self-center">
-                    <ButtonSubmit>Enivar Resposta</ButtonSubmit>
+                    <ButtonSubmit :disabled="!infos.survey_is_open">
+                        <p v-if="infos.survey_is_open">
+                            Enviar Resposta
+                        </p>
+                        <p v-if="!infos.survey_is_open">
+                            Enquete Encerrada!
+                        </p>
+                    </ButtonSubmit>
                 </div>
             </form>
         </Fileld>
@@ -81,6 +90,7 @@ export default {
     props: {
         survey: Object,
         options: Object,
+        infos: Object,
         votes: Object,
         flash: Object
     },

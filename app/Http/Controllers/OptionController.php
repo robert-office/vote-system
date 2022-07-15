@@ -29,6 +29,10 @@ class OptionController extends Controller
     {
         $options = $request->options;
         $survey = Survey::find($request->survey_id);
+        if(!$survey){
+            return redirect('enquetes')->with('failed', 'Impossivel adicionar opções a essa enquete');
+        }
+
         $survey->options()->createMany($options);
 
         return Redirect::route('enquetes.index');
@@ -44,7 +48,7 @@ class OptionController extends Controller
     {
         $survey = Survey::find($id);
         if(!$survey){
-            return Redirect::route('enquetes.index');
+            return redirect('enquetes')->with('failed', 'Impossivel editar as opções dessa enquete');
         }
 
         $options = $survey->options->toArray();
