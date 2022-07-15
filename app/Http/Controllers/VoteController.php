@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Events\VoteAdded;
+use App\Http\Requests\StoreVoteRequest;
 use App\Models\Survey;
 use App\Models\Vote;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class VoteController extends Controller
@@ -17,12 +17,9 @@ class VoteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreVoteRequest $request)
     {
-        $requestValidated = $request->validate([
-            'survey_id' => 'required',
-            'option_id' => 'required'
-        ]);
+        $requestValidated = $request->validated();
 
         $survey = Survey::find($request->survey_id);
         if (!$survey) {

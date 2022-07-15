@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreOptionRequest;
 use App\Models\Option;
 use App\Models\Survey;
 use Illuminate\Http\Request;
@@ -25,9 +26,11 @@ class OptionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreOptionRequest $request)
     {
-        $options = $request->options;
+        $validatedData = $request->validated();
+        $options = $validatedData['options'];
+
         $survey = Survey::find($request->survey_id);
         if(!$survey){
             return redirect('enquetes')->with('failed', 'Impossivel adicionar opções a essa enquete');
