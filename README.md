@@ -11,9 +11,7 @@
 </p>
 
 <!--Banner session-->
-<p align="center">
-       - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+)<img width="400px" src="public/assets/logo-signo.svg" alt="logo signo" title="SIGNO web"></div>`#f03c15`
-</p>
+<p align="center"><img width="400px" src="public/assets/votesystemlanding.PNG" alt="logo signo" title="landing"></p>
 
 <!--About session-->
 <h1 align="center">Avaliação de competência<br>SISTEMA DE VOTAÇÃO</h1>
