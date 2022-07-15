@@ -39,8 +39,11 @@ npm install
 
 
 <h3>👨‍💻 Ajustando o .env </h3>
+
 * Crie um arquivo na raiz do projeto com o nome .env
+
 * Copie tudo do .env.example para ele
+
 * Gere a key do APP com o comando seguinte
 
 ```php
@@ -62,9 +65,11 @@ PUSHER_HOST=127.0.0.1
 
 
 <h2>👨‍💻 Ajustando o Banco de Dados </h3>
+
 <p align="left"><img width="500px" src="public/assets/vote-system-bd.PNG" alt="logo signo" title="landing"></p>
 
 * No seu BD crie um banco de dados com o nome vote_system
+
 * Execute a migração das tabelas do projeto
 
 ```php
@@ -75,6 +80,7 @@ php artisan migrate
 <h2>👨‍💻 Inicializando o projeto localmente </h3>
 
 * Este projeto utiliza o vite, websockets e o server para inicializar o servidor do laravel.
+
 * Em 3 terminais powershell diferentes, execute:
 
 ```php
