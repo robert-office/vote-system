@@ -12,13 +12,7 @@
 
 <!--Banner session-->
 <p align="center">
-    
-    ```html
-    
-        <img width="400px" src="public/assets/logo-signo.svg" alt="logo signo" title="SIGNO web">
-
-    ```
-    
+        <div style="background-color: white"><img width="400px" src="public/assets/logo-signo.svg" alt="logo signo" title="SIGNO web"></div>
 </p>
 
 <!--About session-->
